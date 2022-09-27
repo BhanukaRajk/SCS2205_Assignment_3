@@ -17,9 +17,9 @@ Step 2: Install python3 --------------------------------------------------------
 
 
 
-Step 3: Open the terminal on "20001411" folder which contains 'server.py' file --------------------------------------------
+Step 3: Open the terminal for the folder containing the 'server.py' file --------------------------------------------
 
-> Go to the 20001411 folder
+> Go to the folder contains 'server.py' file
 > Click on File Explorer's address bar
 > Clear selected address
 > Type 'cmd'
@@ -32,17 +32,15 @@ Step 4: Start the server -------------------------------------------------------
 
 > Type one of the below commands in terminal
 
-...20001411> python server.py
-
-            OR
-
-...20001411> py server.py
+>>> python server.py
+        OR
+>>> py server.py
 
 > Server will start and display,
 
-    Server socket successfully connected
-    2728 and hostname binded to the socket
-    Now Socket is listening
+    Server socket successfully created
+    2728 (Port) and 127.0.0.1 (Hostname) binded to the socket
+    Socket is listening for a request
 
 
 
@@ -53,9 +51,20 @@ Step 5: Open your browser ------------------------------------------------------
 
 Step 6: Open the page -----------------------------------------------------------------------------------------------------
 
-> Type http://localhost:2728/ on your browser
+> Type http://localhost:2728/ or http://localhost:2728 on your browser
+
+
+>>>>> ENJOY! :) <<<<<
 
 
 
 
-> ENJOY! :)
+
+Final: To stop the server,
+
+> Go to the terminal which starts the server
+
+> If you are a Windows or Linux user --> press Ctrl+C
+> If you are a Mac user --> press Control+C
+
+> Reload the page! (Server will stop running)

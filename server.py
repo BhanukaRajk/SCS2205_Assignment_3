@@ -1,87 +1,134 @@
+#----------------------------------#
 # SCS2205 Computer Networks I
 # Take Home Assignment 3
+#----------------------------------#
 
+#----------------------------------#
 # Name: P. D. P. B. Y. Rajakaruna
 # Index Number: 20001411
+#----------------------------------#
 
-# import socket module
+#----------------------------------#
+# web server: This PC
+# Client: Web browser
+#----------------------------------#
+
+
+# import socket module and sys module
 import socket
+import sys
 
-# Creating socket
+# Creating the socket
 SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# AF_INET - Socket domain (AF_INET for IPv4, AF_INET6 for IPv6)
-# AF_STREAM - Socket type
+# AF_INET - Socket domain (AF_INET corresponds for IPv4, AF_INET6 corresponds for IPv6)
+# AF_STREAM - Socket type (TCP)
 
 # Display the message socket created
 print("Server socket successfully created")
 
-# reserving port
-Port = 2728;
+# reserving a port
+Port = 2728
 
-# Hosting server - localhost
-Host = '127.0.0.1'
+# Hosting server address - localhost
+Localhost = "127.0.0.1"
 
 # Get local machine name
 # host = socket.gethostname()
 
-# binding address (hostname and port number) to the socket
-SOCKET.bind((Host, Port))
+
+
+# Try to bind address (hostname and port number) to the socket
+try:
+    SOCKET.bind((Localhost, Port))
+
+except socket.error as msg:
+    # Display error message and exit
+    print("# Binding failed!")
+    sys.exit(1)
+
+
 
 # display message about the binding process
-print("%s and hostname binded to the socket" % (Port))
+print(Port, "(Port) and",  Localhost, "(Hostname) binded to the socket")
 
 # Start server(local) and wait for the request for client connection
-# 5 is the number of unaccepted connections that the system will allow before binding the new connections
-# maximum 3 requests allowed before binding the new connections
+# SOCKET.listen(number of clients can interact) - 6th client will be dropped
 SOCKET.listen(5)
-
-
-print("Now Socket is listening") 
+print("Socket is listening for a request") 
 
 
 
+# The loop stops only if we interrupt it or an error occurs
 while True:
     
-    # establish the connection with client
+    # Establish the connection
+    # accept() returns two objects; socket-client object and the address.
     connection, address = SOCKET.accept()
-    print('Got connection from', str(address))
 
-    request = connection.recv(1024).decode('utf-8') 
+    # Display the Localhost address and the port
+    print("Got connection from", address)
 
+    # Maximum data packet size is 1024 bytes. Others not acceptable
+    request = connection.recv(1024).decode("utf-8") 
 
-    header = request.split(' ')
-    
+    # Get the browser url
     try:
-        currentPath = header[1]
-    except IndexError:
-        currentPath = '/'
-    
-    print("Current Path :" + currentPath)
+        FilePath = request.split(" ")[1]
 
-    if currentPath == '/' : 
-        currentPath = './htdocs/index.html'
+    except IndexError:
+        response = "HTTP/1.1 400 Bad Request :("
+        #FilePath = "/"
+    
+    # Print the path of current file
+    print("Current Path :" + FilePath)
+
+
+
+    # If the client requests index.html page, send it to the client
+    if FilePath == "/" : 
+        FilePath = "./htdocs/index.html"
+
+        # Indicate that the file has been sent
         print("Connected to index.html") 
         
+    # If the client requests contact.html page, send it to the client
+    elif FilePath == "/me/contact" or FilePath == "/me/contact.html":
+        FilePath = "./htdocs/me/contact.html"
 
-    elif currentPath == '/me/contact' or currentPath == '/me/contact.html':
-        currentPath = './htdocs/me/contact.html'
+        # Indicate that the file has been sent
         print("Connected to contact.html") 
         
-    try:
-        file = open(currentPath)
-        fileContent = file.read()
-        file.close()
 
-        response = 'HTTP/1.x 200 OK\n\n' + fileContent
+
+    try:
+        # Trying to open the file in requested path
+        File = open(FilePath)
+
+        # Reading the content of file
+        Content = File.read()
+
+        # Closing the file
+        File.close()
+
+        # Provide response with the contents of the file
+        response = "HTTP/1.1 200 OK\n\n" + Content
         
-        
+    # If the file/page not founded in requested path
     except:
-        response = 'HTTP/1.x 404 Not Found\n\n404 Page Not Found :('
+        # Provide the page not found 404 error
+        response = "HTTP/1.1 404 Not Found\n\n404 Page Not Found :("
+
+        # Display the error message via console
         print("404 Page Not Found")
     
+
+
+    # send the encoded(by utf-8) response to the client
     connection.sendall(response.encode())
+
+    # Closing the connection betweeen server and client
     connection.close()
 
-# close the socket
+# closing socket
 SOCKET.close()
