@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: rgb(36, 36, 36);
+        }
+
+        .content-img {
+            width: 10em;
+            height: 10em;
+            border-radius: 50%;
+        }
+
+        .heading {
+            background: linear-gradient(to right, #000000 0%, #08792d 100%);
+            border-radius: 15px 15px 0px 0px;
+            color: white;
+            margin-bottom: 5%;
+        }
+
+        .content {
+            margin: auto;
+            margin-top: 5%;
+            box-shadow: 1px 3px 8px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 2%;
+            width: 50%;
+        }
+
+        .upper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .headertxt {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details {
+            padding: 0 5% 0 5%;
+        }
+
+        #button {
+            font-size: medium;
+            color: rgb(0, 0, 0);
+            padding: 3% 15% 3% 15%;
+            background: #e2e2e2;
+            border: 1px solid black;
+            border-radius: 30px;
+        }
+
+        #button:hover {
+            color: #e2e2e2;
+            background: black;
+        }
+    </style>
+
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="content">
+        <div class="heading">
+            <h1>Welcome!</h1>
+        </div>
+        <div class="upper">
+            <div class="headertxt">
+                <div>
+                    <h2>This is my Home page</h2>
+                </div>
+                <div>
+                    <h4>Hi!.. I'm Bhanuka Rajakaruna</h4>
+                </div>
+            </div>
+            <div>
+                <img src="https://avatars.githubusercontent.com/u/87462362?s=400&u=e9173336ef345e72082f706c6c87397246b7e163&v=4"
+                    alt="Profile Image" class="content-img">
+            </div>
+        </div>
+        <div class="details">
+            <p>I'm an undergraduate student at UCSC. I'm still learning about the programming languages such as Python,
+                C, C++, Java, JavaScript etc. Apart from that, I would like to learn about web design in more details.
+                These days I'm learning about the NodeJS, ExpressJS, React and MongoDB. This webpage is created for the
+                SCS2205 Computer Networks I Take Home Assignement 3 using HTML and CSS. It is about the server-client
+                model to learn about the backbone of internet browsing.</p>
+        </div>
+        <div><button type="button" id="button" name="home_button"
+                onclick="location.href='http://localhost:2728/me/contact'">Contact
+                me</button></div>
+    </div>
+
+</body>
+
+</html>
