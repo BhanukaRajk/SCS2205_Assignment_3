@@ -44,7 +44,7 @@ try:
 
 except socket.error as msg:
     # Display error message and exit
-    print("# Binding failed!")
+    print("Error! Binding failed!")
     sys.exit(1)
 
 
@@ -77,8 +77,8 @@ while True:
         FilePath = request.split(" ")[1]
 
     except IndexError:
-        response = "HTTP/1.1 400 Bad Request :("
-        #FilePath = "/"
+        response = "\nHTTP/1.1 400 Bad Request :(\n"
+        print("\n400 Bad Request :(\n")
     
     # Print the path of current file
     print("Current Path :" + FilePath)
@@ -90,14 +90,14 @@ while True:
         FilePath = "./htdocs/index.html"
 
         # Indicate that the file has been sent
-        print("Connected to index.html") 
+        print("\nConnected to index.html\n") 
         
     # If the client requests contact.html page, send it to the client
     elif FilePath == "/me/contact" or FilePath == "/me/contact.html":
         FilePath = "./htdocs/me/contact.html"
 
         # Indicate that the file has been sent
-        print("Connected to contact.html") 
+        print("\nConnected to contact.html\n") 
         
 
 
@@ -112,15 +112,15 @@ while True:
         File.close()
 
         # Provide response with the contents of the file
-        response = "HTTP/1.1 200 OK\n\n" + Content
+        response = "\nHTTP/1.1 200 OK\n\n" + Content
         
     # If the file/page not founded in requested path
     except:
         # Provide the page not found 404 error
-        response = "HTTP/1.1 404 Not Found\n\n404 Page Not Found :("
+        response = "\nHTTP/1.1 404 Not Found\n\n404 Page Not Found :(\n"
 
         # Display the error message via console
-        print("404 Page Not Found")
+        print("\n404 Page Not Found\n")
     
 
 
